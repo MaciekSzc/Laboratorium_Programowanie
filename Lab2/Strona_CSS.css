@@ -1,0 +1,107 @@
+
+*
+{
+    box-sizing: border-box;
+}
+
+body
+{
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+   
+}
+
+h1
+{
+    size: 50px;
+}
+
+
+h4
+{
+    size: 30px;
+}
+
+header
+{
+    position: fixed;
+    top:0px;
+    left: 0px;
+    width: 100%;
+    margin: 0px;
+    background-color: #D4D9DB; 
+    box-shadow: 0 0 10px 2px #aaa;
+    padding: 20px 120px;
+    z-index: 100px;
+    
+
+
+}
+
+nav
+{
+    margin-top: 240px;
+}
+
+
+table
+{
+width: 30%;
+
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+#glowna{
+    float: right;
+    width: 30%;
+    margin-left: 20px;
+    
+}
+
+#ksiazki{
+    
+    float: right;
+    
+}
+
+article{
+    display: block;
+    margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 120px;
+  margin-right: 120px;
+  font-size: 20px;
+  position: relative;
+  /*position: fixed; */
+  align-items: center;
+  justify-content: space-between;
+  padding: 150px 120px;
+}
+
+section{
+    display: block;
+    margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 120px;
+  margin-right: 120px;
+  font-size: 20px;
+}
+
+
+.article-element{
+    width: 50%;
+}
+
+
+footer {
+    text-align: center;
+    background-color: #f2f2f2;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+  }
