@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Największa figura</title>
+</head>
+<body>
+    <script>
+        class Trojkat {
+            constructor(nazwa, podstawa, wysokosc) {
+                this.nazwa = nazwa;
+                this.podstawa = podstawa;
+                this.wysokosc = wysokosc;
+            }
+        
+            pole() {
+                return 0.5 * this.podstawa * this.wysokosc;
+            }
+        }
+        
+        function najwiekszaFigura(prostokat, trapez, trojkat) {
+            let najwieksza = prostokat;
+        
+            if (trapez.pole() > najwieksza.pole()) {
+                najwieksza = trapez;
+            }
+            
+            if (trojkat.pole() > najwieksza.pole()) {
+                najwieksza = trojkat;
+            }
+        
+            console.log(`Największą figurą jest ${najwieksza.nazwa} o polu ${najwieksza.pole()}`);
+        }
+        
+        let prostokat = new Prostokat("Prostokat", 5, 6);
+        let trapez = new Trapez("Trapez", 7, 8, 9);
+        let trojkat = new Trojkat("Trojkat", 10, 11);
+        
+        najwiekszaFigura(prostokat, trapez, trojkat);
+    </script>
+</body>
+</html>

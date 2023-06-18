@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Obliczanie pola trapezu</title>
+</head>
+<body>
+    <script>
+        class Trapez {
+            constructor(nazwa, wysokosc, podstawa1, podstawa2) {
+                this.nazwa = nazwa;
+                this.wysokosc = wysokosc;
+                this.podstawa1 = podstawa1;
+                this.podstawa2 = podstawa2;
+            }
+        
+            pole() {
+                return ((this.podstawa1 + this.podstawa2) / 2) * this.wysokosc;
+            }
+        }
+        
+        let trapez1 = new Trapez("Trapez1", 5, 6, 7);
+        let trapez2 = new Trapez("Trapez2", 8, 9, 10);
+        let trapez3 = new Trapez("Trapez3", 11, 12, 13);
+        
+        console.log(`Pole trapezu ${trapez1.nazwa}: ${trapez1.pole()}`);
+        console.log(`Pole trapezu ${trapez2.nazwa}: ${trapez2.pole()}`);
+        console.log(`Pole trapezu ${trapez3.nazwa}: ${trapez3.pole()}`);
+
+
+    </script>
+</body>
+</html>

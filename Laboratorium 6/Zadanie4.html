@@ -1,0 +1,37 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zmiana nazwy prostokąta</title>
+</head>
+<body>
+    <script>  
+        class Prostokat {
+            constructor(nazwa, wysokosc, szerokosc) {
+                this.nazwa = nazwa;
+                this.wysokosc = wysokosc;
+                this.szerokosc = szerokosc;
+            }
+        
+            obwod() {
+                return 2 * (this.wysokosc + this.szerokosc);
+            }
+        
+            pole() {
+                return this.wysokosc * this.szerokosc;
+            }
+        
+            zmienNazwe(nowaNazwa) {
+                this.nazwa = nowaNazwa;
+            }
+        }
+        
+        let prostokat = new Prostokat("Prostokat1", 5, 6);
+        console.log(`Stara nazwa: ${prostokat.nazwa}`);
+        
+        prostokat.zmienNazwe("NowyProstokat");
+        console.log(`Nowa nazwa: ${prostokat.nazwa}`);
+    </script>
+</body>
+</html>

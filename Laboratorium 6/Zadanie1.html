@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Porównanie prostokątów</title>
+</head>
+<body>
+    <script>
+
+        class Prostokat {
+            constructor(nazwa, wysokosc, szerokosc) {
+                this.nazwa = nazwa;
+                this.wysokosc = wysokosc;
+                this.szerokosc = szerokosc;
+            }
+        
+            obwod() {
+                return 2 * (this.wysokosc + this.szerokosc);
+            }
+        
+            pole() {
+                return this.wysokosc * this.szerokosc;
+            }
+        
+            static porownaj(prostokat1, prostokat2) {
+                return (prostokat1.pole() > prostokat2.pole()) ? prostokat1 : prostokat2;
+            }
+        }
+        
+        let prostokat1 = new Prostokat("Prostokat1", 5, 6);
+        let prostokat2 = new Prostokat("Prostokat2", 7, 8);
+        let prostokat3 = new Prostokat("Prostokat3", 9, 10);
+        
+        let najwiekszyProstokat = Prostokat.porownaj(prostokat1, prostokat2);
+        najwiekszyProstokat = Prostokat.porownaj(najwiekszyProstokat, prostokat3);
+        
+        console.log(`Nazwa największego prostokąta: ${najwiekszyProstokat.nazwa}`);
+
+    </script>
+</body>
+</html>
