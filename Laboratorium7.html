@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laboratorium7</title>
+</head>
+<body>
+    <form id="registrationForm" method="POST">
+        <div>
+          <label for="name">Imię:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+          <label for="surname">Nazwisko:</label>
+          <input type="text" id="surname" name="surname" required>
+        </div>
+        <div>
+          <label for="mail">Email:</label>
+          <input type="email" id="mail" name="mail" required>
+        </div>
+        <div>
+          <label for="pwd">Hasło:</label>
+          <input type="password" id="pwd" name="pwd" required>
+          
+          <label for="pwdConfirm">Potwierdź hasło:</label>
+          <input type="password" id="pwdConfirm" name="pwdConfirm" required>
+        </div>
+        <div>
+          <label for="sex">Płeć:</label>
+          <select id="sex" name="sex">
+            <option value="">Wybierz płeć</option>
+            <option value="male">Mężczyzna</option>
+            <option value="female">Kobieta</option>
+            <option value="other">Inna</option>
+          </select>
+        </div>
+        <div>
+          <label for="phoneNumber">Telefon:</label>
+          <input type="tel" id="phoneNumber" name="phoneNumber" required maxlength="9">
+        </div>
+        <div>
+          <label for="birthDate">Data urodzenia:</label>
+          <input type="date" id="birthDate" name="birthDate" required>
+        </div>
+        <div>
+          <label for="place">Kraj:</label>
+          <input type="text" id="place" name="place" pattern="[A-Za-z\s]+" required>
+        </div>
+        <button type="submit">Zatwierdź</button>
+   
+        <p id="notification"></p>
+    </form>
+
+<script>
+const formElem = document.getElementById("registrationForm");
+const nameInput = document.getElementById("name");
+const surnameInput = document.getElementById("surname");
+const mailInput = document.getElementById("mail");
+const pwdInput = document.getElementById("pwd");
+const pwdConfirmInput = document.getElementById("pwdConfirm");
+const sexInput = document.getElementById("sex");
+const phoneInput = document.getElementById("phoneNumber");
+const birthDateInput = document.getElementById("birthDate");
+const countryInput = document.getElementById("place");
+
+function validateName() {
+  if (nameInput.value === "") {
+    nameInput.setCustomValidity("Podaj swoje imię.");
+  } else {
+    nameInput.setCustomValidity("");
+  }
+}
+
+function validateSurname() {
+  if (surnameInput.value === "") {
+    surnameInput.setCustomValidity("Podaj swoje nazwisko.");
+  } else {
+    surnameInput.setCustomValidity("");
+  }
+}
+
+function validateMail() {
+  const email = mailInput.value;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    mailInput.setCustomValidity("Podaj poprawny adres email.");
+  } else {
+    mailInput.setCustomValidity("");
+  }
+}
+
+function validatePwd() {
+  const password = pwdInput.value;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+  if (!passwordRegex.test(password)) {
+    pwdInput.setCustomValidity("Hasło musi zawierać min. 8 znaków, w tym jedną dużą literę, małą literę i cyfrę.");
+  } else {
+    pwdInput.setCustomValidity("");
+  }
+}
+
+function validatePwdConfirm() {
+  const password = pwdInput.value;
+  const confirmPassword = pwdConfirmInput.value;
+
+  if (password !== confirmPassword) {
+    alert("Hasła muszą być identyczne.");
+  }
+}
+
+function validateBirthDate() {
+  const birthdate = birthDateInput.value;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(birthdate)) {
+    return false;
+  }
+
+  const date = new Date(birthdate);
+  if (date.toString() === 'Invalid Date') {
+    return false;
+  }
+
+  const today = new Date();
+  const adultAge = 18;
+  const age = today.getFullYear() - date.getFullYear();
+
+  if (age < adultAge) {
+    return false;
+  }
+
+  return true;
+}
+
+formElem.addEventListener("submit", function(event) {
+  validateName();
+  validateSurname();
+  validateMail();
+  validatePwd();
+  validatePwdConfirm();
+  if (formElem.checkValidity() === false) {
+    event.preventDefault();
+  } else {
+    document.getElementById("notification").innerHTML = "Formularz został poprawnie wypełniony!";
+  }
+});
+
+</script>
+</body>
+</html> 
