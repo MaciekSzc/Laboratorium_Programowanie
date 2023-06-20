@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorium 8</title>
+</head>
+<body>
+    <form id="mainForm" method="POST">
+        <div>
+          <label for="user-name">Imię:</label>
+          <input type="text" id="user-name" name="user-name" required>
+        </div>
+        <div>
+          <label for="user-surname">Nazwisko:</label>
+          <input type="text" id="user-surname" name="user-surname" required>
+        </div>
+        <div>
+          <label for="user-email">Email:</label>
+          <input type="email" id="user-email" name="user-email" required>
+        </div>
+        <div>
+          <label for="user-password">Hasło:</label>
+          <input type="password" id="user-password" name="user-password" required>
+          <label for="repeat-password">Powtórz hasło:</label>
+          <input type="password" id="repeat-password" name="repeat-password" required>
+        </div>
+        <div>
+          <label for="user-gender">Płeć:</label>
+          <select id="user-gender" name="user-gender">
+            <option value="">Wybierz płeć</option>
+            <option value="male">Mężczyzna</option>
+            <option value="female">Kobieta</option>
+            <option value="other">Inne</option>
+          </select>
+        </div>
+        <div>
+          <label for="user-phone">Telefon:</label>
+          <input type="text" id="user-phone" oninput="validatePhoneNumber(event)" maxlength="9">
+        </div>
+        <div>
+          <label for="user-birthdate">Data urodzenia:</label>
+          <input type="date" id="user-birthdate" name="user-birthdate" required>
+        </div>
+        <div>
+          <label for="user-country">Kraj:</label>
+          <select id="user-country" onchange="enableRegion()">
+            <option value="">Wybierz...</option>
+            <option value="polska">Polska</option>
+            <option value="niemcy">Niemcy</option>
+            <option value="uk">Wielka Brytania</option>
+            <option value="ukraina">Ukraina</option>
+            <option value="usa">USA</option>
+            <option value="inne">Inne</option>
+          </select>
+        </div>
+        <div>
+          <label for="user-region">Województwo:</label>
+          <select id="user-region" disabled>
+            <option value="">Wybierz...</option>
+            <option value="dolnoslaskie">Dolnośląskie</option>
+            <option value="kujawsko-pomorskie">Kujawsko-Pomorskie</option>
+            <option value="lubelskie">Lubelskie</option>
+            <option value="podkarpackie">Podkarpackie</option>
+          </select>
+        </div>
+        <div>
+          <label for="residential-address">Adres zamieszkania:</label>
+          <input type="text" id="residential-address" disabled> <br>
+          <label for="mailing-address-checkbox">
+            <input type="checkbox" id="mailing-address-checkbox" checked onchange="toggleMailingAddress()"> Adres korespondencyjny jest taki sam jak adres zamieszkania
+          </label>
+          <div id="mailing-address-container" style="display: none;">
+            <label for="mailing-address">Adres korespondencyjny:</label>
+            <input type="text" id="mailing-address" disabled>
+        </div>
+        <button type="submit">Zapisz</button>
+        <p id="form-alert"></p>
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", enableRegion);
+    
+        const form = document.getElementById("mainForm");
+        const userNameInput = document.getElementById("user-name");
+        const userSurnameInput = document.getElementById("user-surname");
+        const userEmailInput = document.getElementById("user-email");
+        const userPasswordInput = document.getElementById("user-password");
+        const repeatPasswordInput = document.getElementById("repeat-password")
+        const userGenderInput = document.getElementById("user-gender");
+        const userPhoneInput = document.getElementById("user-phone");
+        const userBirthdateInput = document.getElementById("user-birthdate");
+        const userCountryInput = document.getElementById("user-country");
+    
+        function validatePhoneNumber(event) {
+            const input = event.target;
+            const sanitizedValue = input.value.replace(/\D/g, '');
+            input.value = sanitizedValue; 
+    
+            if (sanitizedValue.length < 9 || sanitizedValue.length > 10) {
+                 input.setCustomValidity('Numer telefonu powinien składać się z 9 lub 10 cyfr.');
+            } else {
+                input.setCustomValidity('');
+            }
+        }
+        
+        function enableRegion() {
+            var countrySelect = document.getElementById("user-country");
+            var regionSelect = document.getElementById("user-region");
+            var residentialAddressInput = document.getElementById("residential-address");
+            var mailingAddressCheckbox = document.getElementById("mailing-address-checkbox");
+            var mailingAddressInput = document.getElementById("mailing-address");
+    
+            if (countrySelect.value === "polska") {
+                regionSelect.disabled = false;
+                regionSelect.innerHTML = `
+                    <option value="">Wybierz...</option>
+                    <option value="dolnoslaskie">Dolnośląskie</option>
+                    <option value="kujawsko-pomorskie">Kujawsko-Pomorskie</option>
+                    <option value="lubelskie">Lubelskie</option>
+                    <option value="podkarpackie">Podkarpackie</option>
+                    `;
+                residentialAddressInput.disabled = false;
+                mailingAddressCheckbox.disabled = false;
+            if (!mailingAddressCheckbox.checked) {
+              mailingAddressInput.disabled = false;
+            }
+            } else {
+                regionSelect.disabled = true;
+                regionSelect.innerHTML = "";
+                residentialAddressInput.disabled = false;
+                mailingAddressCheckbox.disabled = true;
+                mailingAddressCheckbox.checked = true;
+                mailingAddressInput.disabled = true;
+            }
+        }
+    
+        function toggleMailingAddress() {
+            var checkbox = document.getElementById("mailing-address-checkbox");
+            var container = document.getElementById("mailing-address-container");
+            var mailingAddressInput = document.getElementById("mailing-address");
+        
+            if (checkbox.checked) {
+              container.style.display = "none";
+              mailingAddressInput.disabled = true;
+            } else {
+              container.style.display = "block";
+              mailingAddressInput.disabled = false;
+            }
+        }
+        
+        function validateUserName() {
+          if (userNameInput.value === "") {
+            userNameInput.setCustomValidity("Proszę wpisać imię.");
+          } else {
+            userNameInput.setCustomValidity("");
+          }
+        }
+        
+        function validateUserSurname() {
+          if (userSurnameInput.value === "") {
+            userSurnameInput.setCustomValidity("Proszę wpisać nazwisko.");
+          } else {
+            userSurnameInput.setCustomValidity("");
+          }
+        }
+        
+        function validateUserEmail() {
+          const email = userEmailInput.value;
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            userEmailInput.setCustomValidity("Proszę wpisać poprawny adres email.");
+          } else {
+            userEmailInput.setCustomValidity("");
+          }
+        }
+        
+        function validateUserPassword() {
+          const password = userPasswordInput.value;
+          const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+          if (!passwordRegex.test(password)) {
+            userPasswordInput.setCustomValidity("Hasło powinno zawierać minimum 8 znaków, przynajmniej jedną małą i jedną dużą literę oraz cyfrę.");
+          } else {
+            userPasswordInput.setCustomValidity("");
+          }
+        }
+        
+        function checkPasswordMatch() {
+        const password = userPasswordInput.value;
+        const confirmPassword = repeatPasswordInput.value;
+        
+        if (password === confirmPassword) {
+        return true;
+        } else {
+        return alert("Hasła nie są takie same");
+        }
+        }
+        
+        function validateUserBirthdate() {
+        const birthdate = userBirthdateInput.value;
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(birthdate)) {
+        return false;
+        }
+        
+        const date = new Date(birthdate);
+        if (date.toString() === 'Invalid Date') {
+        return false;
+        }
+        
+        const today = new Date();
+        const adultAge = 18;
+        const age = today.getFullYear() - date.getFullYear();
+        
+        if (age < adultAge) {
+        return false;
+        }
+        
+        return true;
+        }
+        
+        form.addEventListener("submit", function(event) {
+        validateUserName();
+        validateUserSurname();
+        validateUserEmail();
+        validateUserPassword();
+        if (!checkPasswordMatch()) {
+        event.preventDefault();
+        } else {
+        if (!validateUserBirthdate()) {
+        event.preventDefault();
+        alert("Nieprawidłowa data urodzenia lub osoba niepełnoletnia.");
+        } else {
+        document.getElementById("form-alert").innerHTML = "Formularz został poprawnie wypełniony!";
+        }
+        }
+        });
+        
+    </script>
+</body>
+</html>
+
+
+
